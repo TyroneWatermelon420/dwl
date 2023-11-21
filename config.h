@@ -7,7 +7,7 @@
 static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
 static const unsigned int borderpx         = 3;  /* border pixel of windows */
-static const float bordercolor[]           = COLOR(0x444444ff);
+static const float bordercolor[]           = COLOR(0x1c1f24ff);
 static const float focuscolor[]            = COLOR(0x005577ff);
 static const float urgentcolor[]           = COLOR(0xff0000ff);
 /* To conform the xdg-protocol, set the alpha to zero to restore the old behavior */
@@ -20,6 +20,7 @@ static const char *const autostart[] = {
         "pipewire-pulse", NULL,
         "wireplumber", NULL,
         "waybar", NULL,
+        "export", "WLR_NO_HARDWARE_CURSORS=1", NULL,
         NULL /* terminate */
 };
 
@@ -101,7 +102,7 @@ static const uint32_t send_events_mode = LIBINPUT_CONFIG_SEND_EVENTS_ENABLED;
 LIBINPUT_CONFIG_ACCEL_PROFILE_FLAT
 LIBINPUT_CONFIG_ACCEL_PROFILE_ADAPTIVE
 */
-static const enum libinput_config_accel_profile accel_profile = LIBINPUT_CONFIG_ACCEL_PROFILE_ADAPTIVE;
+static const enum libinput_config_accel_profile accel_profile = LIBINPUT_CONFIG_ACCEL_PROFILE_FLAT;
 static const double accel_speed = 0.0;
 /* You can choose between:
 LIBINPUT_CONFIG_TAP_MAP_LRM -- 1/2/3 finger tap maps to left/right/middle
@@ -131,7 +132,7 @@ static const char *filemanagercmd[] = { "pcmanfm", NULL };
 static const char *brupcmd[] = { "brightnessctl", "set", "10%+", NULL };
 static const char *brdowncmd[] = { "brightnessctl", "set", "10%-", NULL };
 static const char *termcmd[] = { "alacritty", NULL };
-static const char *menucmd[] = { "bemenu-run", NULL };
+static const char *menucmd[] = { "wofi", "--show", "drun", NULL };
 
 /*dmenu scripts*/
 static const char *mo2select[] = { "MO2select", NULL };
