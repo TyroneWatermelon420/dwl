@@ -28,10 +28,12 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
+        "wlr-randr", "--output", "HDMI-A-1", "--preferred", "--pos", "0,0", "--output", "DP-2", "--preferred", "--pos", "1920,0", "--custom-mode", "1920x1080@144Hz", NULL,
+        "xrandr", "--output", "DP-2", "--primary", "--pos", "1920x0", "--mode", "1920x1080", "--rate", "144", "--output", "HDMI-A-1", "--pos", "0x0", NULL,
         "pipewire", NULL,
         "pipewire-pulse", NULL,
         "wireplumber", NULL,
-        "swaybg", "-i", "~/Drives/HDD/Stuff/github-repos/wallpaper/cyberpunk.jpg", NULL,
+        "swaybg", "-i", "/home/erik/Drives/HDD/Stuff/github-repos/wallpaper/gruvbox.jpg", NULL,
         NULL /* terminate */
 };
 
@@ -58,6 +60,8 @@ static const MonitorRule monrules[] = {
 	/* example of a HiDPI laptop monitor:
 	{ "eDP-1",    0.5f,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 	*/
+	{ "DP-2",        0.5f,  1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
+	{ "HDMI-A-1",    0.5f,  1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 	/* defaults */
 	{ NULL,       0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 };
@@ -153,9 +157,9 @@ static const Key keys[] = {
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_d,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
-    { MODKEY,                    XKB_KEY_w,              spawn,          {.v = browsercmd } },
-    { MODKEY,                    XKB_KEY_e,      spawn,          {.v = filemanagercmd } },
-    { MODKEY,                    XKB_KEY_m,      spawn,          {.v = mo2select } },
+    { MODKEY,                    XKB_KEY_w,          spawn,          {.v = browsercmd } },
+    { MODKEY,                    XKB_KEY_e,          spawn,          {.v = filemanagercmd } },
+    { MODKEY,                    XKB_KEY_m,          spawn,          {.v = mo2select } },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
@@ -164,7 +168,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_l,          setmfact,       {.f = +0.05f} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,     zoom,           {0} },
 	{ MODKEY,                    XKB_KEY_Tab,        view,           {0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_C,          killclient,     {0} },
+	{ MODKEY,                    XKB_KEY_q,          killclient,     {0} },
 	{ MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_f,          setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                    XKB_KEY_n,          setlayout,      {.v = &layouts[2]} },
@@ -186,7 +190,7 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_7, XKB_KEY_ampersand,                  6),
 	TAGKEYS(          XKB_KEY_8, XKB_KEY_asterisk,                   7),
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                  8),
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_C,          quit,           {0} },
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_Terminate_Server, quit, {0} },
