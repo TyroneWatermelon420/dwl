@@ -143,8 +143,8 @@ static const char *menucmd[]        = { "wofi", "--show", "drun", NULL };
 static const char *upvol[]          = { "/usr/bin/pactl",   "set-sink-volume", "0",      "+5%",      NULL };
 static const char *downvol[]        = { "/usr/bin/pactl",   "set-sink-volume", "0",      "-5%",      NULL };
 static const char *mutevol[]        = { "/usr/bin/pactl",   "set-sink-mute",   "0",      "toggle",   NULL };
-static const char *browsercmd[]     = { "librewolf", NULL };
-static const char *filemanagercmd[] = { "pcmanfm", NULL };
+static const char *browsercmd[]     = { "librewolf-bin", NULL };
+static const char *filemanagercmd[] = { "nemo", NULL };
 static const char *brupcmd[]        = { "brightnessctl", "set", "10%+", NULL };
 static const char *brdowncmd[]      = { "brightnessctl", "set", "10%-", NULL };
 
