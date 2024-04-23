@@ -23,7 +23,7 @@ static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You ca
 /* bar */
 static const int showbar        = 1; /* 0 means no bar */
 static const int topbar         = 1; /* 0 means bottom bar */
-static const char *fonts[]      = {"monospace:size=10"};
+static const char *fonts[]      = {"Hack Nerd Font Mono:size=12"};
 static const char *fontattrs    = "dpi=96";
 static pixman_color_t normbarfg = { 0xbbbb, 0xbbbb, 0xbbbb, 0xffff };
 static pixman_color_t normbarbg = { 0x2222, 0x2222, 0x2222, 0xffff };
@@ -149,11 +149,11 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[]        = { "foot", NULL };
-static const char *menucmd[]        = { "wofi", "--show", "drun", NULL };
+static const char *menucmd[]        = { "wofi", "--show", "run", NULL };
 static const char *upvol[]          = { "/usr/bin/pactl",   "set-sink-volume", "0",      "+5%",      NULL };
 static const char *downvol[]        = { "/usr/bin/pactl",   "set-sink-volume", "0",      "-5%",      NULL };
 static const char *mutevol[]        = { "/usr/bin/pactl",   "set-sink-mute",   "0",      "toggle",   NULL };
-static const char *browsercmd[]     = { "librewolf-bin", NULL };
+static const char *browsercmd[]     = { "librewolf", NULL };
 static const char *filemanagercmd[] = { "nemo", NULL };
 static const char *brupcmd[]        = { "brightnessctl", "set", "10%+", NULL };
 static const char *brdowncmd[]      = { "brightnessctl", "set", "10%-", NULL };
@@ -201,6 +201,9 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_7, XKB_KEY_slash,                      6),
 	TAGKEYS(          XKB_KEY_8, XKB_KEY_parenleft,                  7),
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenright,                 8),
+    { 0,                         XKB_KEY_XF86AudioMute,        spawn,          {.v = mutevol} },
+    { 0,                         XKB_KEY_XF86AudioLowerVolume, spawn,          {.v = downvol} },
+    { 0,                         XKB_KEY_XF86AudioRaiseVolume, spawn,          {.v = upvol} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_C,          quit,           {0} },
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
