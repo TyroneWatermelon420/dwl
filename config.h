@@ -148,8 +148,8 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[]        = { "foot", NULL };
-static const char *menucmd[]        = { "wofi", "--show", "run", NULL };
+static const char *termcmd[]        = { "alacritty", NULL };
+static const char *menucmd[]        = { "wofi-run", NULL };
 static const char *upvol[]          = { "/usr/bin/pactl",   "set-sink-volume", "0",      "+5%",      NULL };
 static const char *downvol[]        = { "/usr/bin/pactl",   "set-sink-volume", "0",      "-5%",      NULL };
 static const char *mutevol[]        = { "/usr/bin/pactl",   "set-sink-mute",   "0",      "toggle",   NULL };
@@ -185,7 +185,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_n,          setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                    XKB_KEY_space,      setlayout,      {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,      togglefloating, {0} },
-	{ MODKEY,                    XKB_KEY_e,          togglefullscreen, {0} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_E,          togglefullscreen, {0} },
 	{ MODKEY,                    XKB_KEY_0,          view,           {.ui = ~0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_equal,      tag,            {.ui = ~0} },
 	{ MODKEY,                    XKB_KEY_Left,       focusmon,       {.i = WLR_DIRECTION_LEFT} },
