@@ -554,6 +554,20 @@ arrange(Monitor *m)
 
 	strncpy(m->ltsymbol, m->lt[m->sellt]->symbol, LENGTH(m->ltsymbol));
 
+    /* We move all clients (except fullscreen and unmanaged) to LyrTile while
+	 * in floating layout to avoid "real" floating clients be always on top */
+	wl_list_for_each(c, &clients, link) {
+		if (c->mon != m || c->isfullscreen)
+			continue;
+
+		wlr_scene_node_reparent(&c->scene->node,
+				(!m->lt[m->sellt]->arrange && c->isfloating)
+						? layers[LyrTile]
+						: (m->lt[m->sellt]->arrange && c->isfloating)
+								? layers[LyrFloat]
+								: c->scene->node.parent);
+	}
+
 	if (m->lt[m->sellt]->arrange)
 		m->lt[m->sellt]->arrange(m);
 	motionnotify(0, NULL, 0, 0, 0, 0);
