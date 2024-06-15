@@ -14,7 +14,6 @@
 #include <wayland-server-core.h>
 #include <wlr/backend.h>
 #include <wlr/backend/libinput.h>
-#include <wlr/interfaces/wlr_keyboard.h>
 #include <wlr/render/allocator.h>
 #include <wlr/render/wlr_renderer.h>
 #include <wlr/types/wlr_compositor.h>
@@ -396,7 +395,6 @@ static void zoom(const Arg *arg);
 static const char broken[] = "broken";
 static pid_t child_pid = -1;
 static int locked;
-static uint32_t locked_mods = 0;
 static void *exclusive_focus;
 static struct wl_display *dpy;
 static struct wlr_backend *backend;
@@ -958,8 +956,6 @@ createkeyboard(struct wlr_keyboard *keyboard)
 {
 	/* Set the keymap to match the group keymap */
     wlr_keyboard_set_keymap(keyboard, kb_group->wlr_group->keyboard.keymap);
-
-	wlr_keyboard_notify_modifiers(keyboard, 0, 0, locked_mods, 0);
 
 	/* Add the new keyboard to the group */
     	wlr_keyboard_group_add_keyboard(kb_group->wlr_group, keyboard);
