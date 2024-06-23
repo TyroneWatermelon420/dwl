@@ -44,7 +44,7 @@ static const char *const autostart[] = {
         "pipewire", NULL,
         "pipewire-pulse", NULL,
         "wireplumber", NULL,
-        "swaybg", "-i", "/home/erik/Drives/NVMe/Stuff/github-repos/wallpaper/gruvbox.jpg", NULL,
+        "swaybg", "-i", "/home/erik/github-repos/wallpaper/gruvbox.jpg", NULL,
         NULL /* terminate */
 };
 

@@ -172,7 +172,7 @@ client_get_parent(Client *c)
 {
 	Client *p = NULL;
 #ifdef XWAYLAND
-    if (client_is_x11(c)) {
+	if (client_is_x11(c)) {
 		if (c->surface.xwayland->parent)
 			toplevel_from_wlr_surface(c->surface.xwayland->parent->surface, &p, NULL);
 		return p;
@@ -187,10 +187,10 @@ static inline int
 client_has_children(Client *c)
 {
 #ifdef XWAYLAND
-    if (client_is_x11(c))
+	if (client_is_x11(c))
 		return !wl_list_empty(&c->surface.xwayland->children);
 #endif
-    /* surface.xdg->link is never empty because it always contains at least the
+	/* surface.xdg->link is never empty because it always contains at least the
 	 * surface itself. */
 	return wl_list_length(&c->surface.xdg->link) > 1;
 }
