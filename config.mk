@@ -1,4 +1,4 @@
-_VERSION = 0.5
+_VERSION = 0.8-dev
 VERSION  = `git describe --tags --dirty 2>/dev/null || echo $(_VERSION)`
 
 PKG_CONFIG = pkg-config
@@ -12,4 +12,7 @@ DATADIR = $(PREFIX)/share
 XWAYLAND = -DXWAYLAND
 XLIBS = xcb xcb-icccm
 
-CC = gcc
+# dwl itself only uses C99 features, but wlroots' headers use anonymous unions (C11).
+# To avoid warnings about them, we do not use -std=c99 and instead of using the
+# gmake default 'CC=c99', we use cc.
+CC = cc
