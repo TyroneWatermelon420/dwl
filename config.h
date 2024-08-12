@@ -31,9 +31,7 @@ static const char *const autostart[] = {
         "wlr-randr", "--output", "HDMI-A-1", "--preferred", "--pos", "0,0", "--output", "DP-2", "--preferred", "--pos", "1920,0", "--mode", "1920x1080@143.854996Hz", NULL,
         "xrandr", "--output", "DP-2", "--primary", "--pos", "1920x0", "--mode", "1920x1080", "--rate", "144", "--output", "HDMI-A-1", "--pos", "0x0", NULL,
         "dbus-daemon", "--session", NULL,
-        "pipewire", NULL,
-        "pipewire-pulse", NULL,
-        "wireplumber", NULL,
+        "gentoo-pipewire-launcher", NULL,
         "swaybg", "-i", "/home/erik/github-repos/wallpaper/gruvbox.jpg", NULL,
         NULL /* terminate */
 };
@@ -153,7 +151,7 @@ static const char *brupcmd[]        = { "brightnessctl", "set", "10%+", NULL };
 static const char *brdowncmd[]      = { "brightnessctl", "set", "10%-", NULL };
 
 /*dmenu scripts*/
-static const char *mo2select[]      = { "MO2select", NULL };
+static const char *mo2select[]      = { "dm-hub", NULL };
 static const char *dmkill[]         = { "dm-kill", NULL };
 
 static const Key keys[] = {
