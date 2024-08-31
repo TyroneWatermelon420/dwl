@@ -160,7 +160,7 @@ static const Key keys[] = {
     { MODKEY,                    XKB_KEY_w,          spawn,          {.v = browsercmd } },
     { MODKEY,                    XKB_KEY_e,          spawn,          {.v = filemanagercmd } },
     { MODKEY,                    XKB_KEY_m,          spawn,          {.v = mo2select } },
-	//{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
+	{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
