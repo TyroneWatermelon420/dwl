@@ -8,6 +8,9 @@ PREFIX = /usr/local
 MANDIR = $(PREFIX)/share/man
 DATADIR = $(PREFIX)/share
 
+WLR_INCS = `$(PKG_CONFIG) --cflags wlroots-0.19`
+WLR_LIBS = `$(PKG_CONFIG) --libs wlroots-0.19`
+
 # Allow using an alternative wlroots installations
 # This has to have all the includes required by wlroots, e.g:
 # Assuming wlroots git repo is "${PWD}/wlroots" and you only ran "meson setup build && ninja -C build"
@@ -21,10 +24,6 @@ DATADIR = $(PREFIX)/share
 #	-I$(PWD)/wlroots/0.19/include/wlroots-0.19
 #WLR_LIBS = -Wl,-rpath,$(PWD)/wlroots/0.19/lib64 -L$(PWD)/wlroots/0.19/lib64 -lwlroots-0.19
 
-WLR_INCS = `$(PKG_CONFIG) --cflags wlroots-0.19`
-WLR_LIBS = `$(PKG_CONFIG) --libs wlroots-0.19`
-
-# Uncomment to build XWayland support
 XWAYLAND = -DXWAYLAND
 XLIBS = xcb xcb-icccm
 
