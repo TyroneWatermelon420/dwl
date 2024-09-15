@@ -31,6 +31,8 @@ static const char *const autostart[] = {
         "gentoo-pipewire-launcher", NULL,
         "waybar", NULL,
         "swaybg", "-i", "/home/erik/github-repos/wallpaper/cyberpunk.jpg", NULL,
+        "cmst", "-m", NULL,
+        "/usr/libexec/polkit-mate-authentication-agent-1", NULL,
         NULL /* terminate */
 };
 
