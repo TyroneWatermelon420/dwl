@@ -36,6 +36,10 @@ static const char *const autostart[] = {
         "cmst", "-m", NULL,
         "/usr/libexec/polkit-mate-authentication-agent-1", NULL,
         "dbus-update-activation-environment", "WAYLAND_DISPLAY", "XDG_CURRENT_DESKTOP=dwl", NULL,
+        "/usr/libexec/xdg-desktop-portal-gtk", "-r", NULL,
+        "/usr/libexec/xdg-desktop-portal-wlr" "-r", NULL,
+        "/usr/libexec/flatpak-portal", "-r", NULL,
+        "/usr/libexec/xdg-desktop-portal", "-r'", NULL,
         NULL /* terminate */
 };
 
@@ -143,7 +147,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[]        = { "alacritty", NULL };
-static const char *menucmd[]        = { "wofi", "--show", "run", NULL };
+static const char *menucmd[]        = { "rofi", "-show", "drun", NULL };
 static const char *upvol[]          = { "/usr/bin/pactl",   "set-sink-volume", "0",      "+5%",      NULL };
 static const char *downvol[]        = { "/usr/bin/pactl",   "set-sink-volume", "0",      "-5%",      NULL };
 static const char *mutevol[]        = { "/usr/bin/pactl",   "set-sink-mute",   "0",      "toggle",   NULL };
