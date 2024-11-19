@@ -147,7 +147,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[]        = { "alacritty", NULL };
-static const char *menucmd[]        = { "rofi", "-show", "drun", NULL };
+static const char *menucmd[]        = { "rofi", "-show", "drun", "-show-icons", "-icon-theme", "Papirus-Dark", NULL };
 static const char *upvol[]          = { "/usr/bin/pactl",   "set-sink-volume", "0",      "+5%",      NULL };
 static const char *downvol[]        = { "/usr/bin/pactl",   "set-sink-volume", "0",      "-5%",      NULL };
 static const char *mutevol[]        = { "/usr/bin/pactl",   "set-sink-mute",   "0",      "toggle",   NULL };
