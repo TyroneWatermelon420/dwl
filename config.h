@@ -40,6 +40,7 @@ static const char *const autostart[] = {
         "/usr/libexec/xdg-desktop-portal-wlr" "-r", NULL,
         "/usr/libexec/flatpak-portal", "-r", NULL,
         "/usr/libexec/xdg-desktop-portal", "-r'", NULL,
+        "emacs", "--daemon", NULL,
         NULL /* terminate */
 };
 
