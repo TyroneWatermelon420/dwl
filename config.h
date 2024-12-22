@@ -36,10 +36,7 @@ static const char *const autostart[] = {
         "cmst", "-m", NULL,
         "/usr/libexec/polkit-mate-authentication-agent-1", NULL,
         "dbus-update-activation-environment", "WAYLAND_DISPLAY", "XDG_CURRENT_DESKTOP=dwl", NULL,
-        "/usr/libexec/xdg-desktop-portal-gtk", "-r", NULL,
-        "/usr/libexec/xdg-desktop-portal-wlr" "-r", NULL,
-        "/usr/libexec/flatpak-portal", "-r", NULL,
-        "/usr/libexec/xdg-desktop-portal", "-r'", NULL,
+        "portal", NULL,
         "emacs", "--daemon", NULL,
         NULL /* terminate */
 };
@@ -50,6 +47,14 @@ static const Rule rules[] = {
 	/* examples: */
 	{ "Gimp_EXAMPLE",     NULL,       0,            1,           -1 }, /* Start on currently visible tags floating, not tiled */
 	{ "firefox_EXAMPLE",  NULL,       1 << 8,       0,           -1 }, /* Start on ONLY tag "9" */
+};
+
+/* tearing */
+static int tearing_allowed = 1;
+static const ForceTearingRule force_tearing[] = {
+	{.title = "", .appid = "hl_linux"},
+	{.title = "Warcraft III", .appid = ""},
+	{.title = "", .appid = "gamescope"},
 };
 
 /* layout(s) */
