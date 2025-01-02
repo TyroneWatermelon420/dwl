@@ -28,15 +28,12 @@ static const char *const autostart[] = {
         "wlr-randr", "--output", "HDMI-A-1", "--preferred", "--pos", "0,0", "--output", "DP-2", "--preferred", "--pos", "1920,0", "--mode", "1920x1080@143.854996Hz", NULL,
         "xrandr", "--output", "DP-2", "--primary", "--pos", "1920x0", "--mode", "1920x1080", "--rate", "144", "--output", "HDMI-A-1", "--pos", "0x0", NULL,
         "dbus-daemon", "--session", NULL,
-        "pipewire", NULL,
-        "pipewire-pulse", NULL,
-        "wireplumber", NULL,
+        "gentoo-pipewire-launcher", NULL,
         "waybar", NULL,
         "swaybg", "-i", "/home/erik/github-repos/wallpaper/cyberpunk.jpg", NULL,
         "cmst", "-m", NULL,
         "/usr/libexec/polkit-mate-authentication-agent-1", NULL,
-        "dbus-update-activation-environment", "WAYLAND_DISPLAY", "XDG_CURRENT_DESKTOP=dwl", NULL,
-        "portal", NULL,
+        "restart_portals", NULL,
         "emacs", "--daemon", NULL,
         NULL /* terminate */
 };
@@ -55,6 +52,10 @@ static const ForceTearingRule force_tearing[] = {
 	{.title = "", .appid = "hl_linux"},
 	{.title = "Warcraft III", .appid = ""},
 	{.title = "", .appid = "gamescope"},
+    {.title = "", .appid = "witcher3.exe"},
+    {.title = "", .appid = "bg3_dx11.exe"},
+    {.title = "", .appid = "Cyberpunk2077.exe"},
+    {.title = "", .appid = "EoCApp.exe"},
 };
 
 /* layout(s) */
@@ -152,7 +153,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[]        = { "alacritty", NULL };
+static const char *termcmd[]        = { "kitty", NULL };
 static const char *menucmd[]        = { "rofi", "-show", "drun", "-show-icons", "-icon-theme", "Papirus-Dark", NULL };
 static const char *upvol[]          = { "/usr/bin/pactl",   "set-sink-volume", "0",      "+5%",      NULL };
 static const char *downvol[]        = { "/usr/bin/pactl",   "set-sink-volume", "0",      "-5%",      NULL };
