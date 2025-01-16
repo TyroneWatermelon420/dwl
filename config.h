@@ -53,9 +53,15 @@ static const ForceTearingRule force_tearing[] = {
 	{.title = "Warcraft III", .appid = ""},
 	{.title = "", .appid = "gamescope"},
     {.title = "", .appid = "witcher3.exe"},
+    {.title = "", .appid = "bg3.exe"},
     {.title = "", .appid = "bg3_dx11.exe"},
     {.title = "", .appid = "Cyberpunk2077.exe"},
     {.title = "", .appid = "EoCApp.exe"},
+    {.title = "", .appid = "DOOMEternalx64vk.exe"},
+    {.title = "", .appid = "BorderlandsGOTY.exe"},
+    {.title = "", .appid = "Borderlands2.exe"},
+    {.title = "", .appid = "Borderlands3.exe"},
+    {.title = "", .appid = "Fallout4.exe"},
 };
 
 /* layout(s) */
@@ -154,11 +160,11 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[]        = { "kitty", NULL };
-static const char *menucmd[]        = { "rofi", "-show", "drun", "-show-icons", "-icon-theme", "Papirus-Dark", NULL };
+static const char *menucmd[]        = { "wofi", NULL };
 static const char *upvol[]          = { "/usr/bin/pactl",   "set-sink-volume", "0",      "+5%",      NULL };
 static const char *downvol[]        = { "/usr/bin/pactl",   "set-sink-volume", "0",      "-5%",      NULL };
 static const char *mutevol[]        = { "/usr/bin/pactl",   "set-sink-mute",   "0",      "toggle",   NULL };
-static const char *browsercmd[]     = { "librewolf", NULL };
+static const char *browsercmd[]     = { "brave-bin", NULL };
 static const char *filemanagercmd[] = { "nemo", NULL };
 static const char *brupcmd[]        = { "brightnessctl", "set", "10%+", NULL };
 static const char *brdowncmd[]      = { "brightnessctl", "set", "10%-", NULL };
