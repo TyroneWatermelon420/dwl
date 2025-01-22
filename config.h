@@ -55,13 +55,14 @@ static const ForceTearingRule force_tearing[] = {
     {.title = "", .appid = "witcher3.exe"},
     {.title = "", .appid = "bg3.exe"},
     {.title = "", .appid = "bg3_dx11.exe"},
-    {.title = "", .appid = "Cyberpunk2077.exe"},
+    {.title = "", .appid = "GameThread"},
     {.title = "", .appid = "EoCApp.exe"},
     {.title = "", .appid = "DOOMEternalx64vk.exe"},
     {.title = "", .appid = "BorderlandsGOTY.exe"},
     {.title = "", .appid = "Borderlands2.exe"},
     {.title = "", .appid = "Borderlands3.exe"},
     {.title = "", .appid = "Fallout4.exe"},
+    {.title = "", .appid = "SkyrimSE.exe"},
 };
 
 /* layout(s) */
