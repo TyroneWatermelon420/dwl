@@ -1,4 +1,4 @@
-From 6c6d655b68770ce82a24fde9b58c4d97b672553a Mon Sep 17 00:00:00 2001
+From b4753ed2a0d585bc4c67cad3c565ac3435171080 Mon Sep 17 00:00:00 2001
 From: choc <notchoc@proton.me>
 Date: Mon, 23 Oct 2023 10:35:17 +0800
 Subject: [PATCH] implement dwl-ipc-unstable-v2
@@ -60,7 +60,7 @@ index 22d2171..1593033 100644
  	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
  	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
 diff --git a/dwl.c b/dwl.c
-index 8a587d1..7a4949b 100644
+index dc0c861..f1cff8d 100644
 --- a/dwl.c
 +++ b/dwl.c
 @@ -68,6 +68,7 @@
@@ -71,7 +71,7 @@ index 8a587d1..7a4949b 100644
  #include "util.h"
  
  /* macros */
-@@ -144,6 +145,12 @@ typedef struct {
+@@ -145,6 +146,12 @@ typedef struct {
  	uint32_t resize; /* configure serial of a pending resize */
  } Client;
  
@@ -128,7 +128,7 @@ index 8a587d1..7a4949b 100644
  #ifdef XWAYLAND
  static void activatex11(struct wl_listener *listener, void *data);
  static void associatex11(struct wl_listener *listener, void *data);
-@@ -703,6 +726,10 @@ cleanupmon(struct wl_listener *listener, void *data)
+@@ -700,6 +723,10 @@ cleanupmon(struct wl_listener *listener, void *data)
  	LayerSurface *l, *tmp;
  	size_t i;
  
@@ -139,7 +139,7 @@ index 8a587d1..7a4949b 100644
  	/* m->layers[i] are intentionally not unlinked */
  	for (i = 0; i < LENGTH(m->layers); i++) {
  		wl_list_for_each_safe(l, tmp, &m->layers[i], link)
-@@ -983,6 +1010,8 @@ createmon(struct wl_listener *listener, void *data)
+@@ -982,6 +1009,8 @@ createmon(struct wl_listener *listener, void *data)
  	m = wlr_output->data = ecalloc(1, sizeof(*m));
  	m->wlr_output = wlr_output;
  
@@ -148,7 +148,7 @@ index 8a587d1..7a4949b 100644
  	for (i = 0; i < LENGTH(m->layers); i++)
  		wl_list_init(&m->layers[i]);
  
-@@ -1334,6 +1363,192 @@ dirtomon(enum wlr_direction dir)
+@@ -1332,6 +1361,192 @@ dirtomon(enum wlr_direction dir)
  	return selmon;
  }
  
@@ -592,6 +592,3 @@ index 0000000..0a6e7e5
 +    </event>
 +  </interface>
 +</protocol>
--- 
-2.43.0
-

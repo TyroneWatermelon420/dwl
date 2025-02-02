@@ -216,7 +216,7 @@ client_is_float_type(Client *c)
 		if (surface->modal)
 			return 1;
 
-        if (wlr_xwayland_surface_has_window_type(surface, WLR_XWAYLAND_NET_WM_WINDOW_TYPE_DIALOG)
+		if (wlr_xwayland_surface_has_window_type(surface, WLR_XWAYLAND_NET_WM_WINDOW_TYPE_DIALOG)
 				|| wlr_xwayland_surface_has_window_type(surface, WLR_XWAYLAND_NET_WM_WINDOW_TYPE_SPLASH)
 				|| wlr_xwayland_surface_has_window_type(surface, WLR_XWAYLAND_NET_WM_WINDOW_TYPE_TOOLBAR)
 				|| wlr_xwayland_surface_has_window_type(surface, WLR_XWAYLAND_NET_WM_WINDOW_TYPE_UTILITY)) {
@@ -361,7 +361,7 @@ client_set_tiled(Client *c, uint32_t edges)
 		wlr_xwayland_surface_set_maximized(c->surface.xwayland,
 				edges != WLR_EDGE_NONE, edges != WLR_EDGE_NONE);
 		return;
-    }
+  }
 #endif
 	if (wl_resource_get_version(c->surface.xdg->toplevel->resource)
 			>= XDG_TOPLEVEL_STATE_TILED_RIGHT_SINCE_VERSION) {

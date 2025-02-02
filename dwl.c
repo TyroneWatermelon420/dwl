@@ -776,8 +776,9 @@ checkidleinhibitor(struct wlr_surface *exclude)
 void
 cleanup(void)
 {
-    cleanuplisteners();
 	size_t i;
+
+	cleanuplisteners();
 #ifdef XWAYLAND
 	wlr_xwayland_destroy(xwayland);
 	xwayland = NULL;
@@ -876,7 +877,6 @@ cleanuplisteners(void)
 	wl_list_remove(&xwayland_ready.link);
 #endif
 }
-
 
 void
 closemon(Monitor *m)
@@ -1362,7 +1362,7 @@ destroydragicon(struct wl_listener *listener, void *data)
 	/* Focus enter isn't sent during drag, so refocus the focused node. */
 	focusclient(focustop(selmon), 1);
 	motionnotify(0, NULL, 0, 0, 0, 0);
-    wl_list_remove(&listener->link);
+	wl_list_remove(&listener->link);
 }
 
 void
@@ -1371,7 +1371,7 @@ destroyidleinhibitor(struct wl_listener *listener, void *data)
 	/* `data` is the wlr_surface of the idle inhibitor being destroyed,
 	 * at this point the idle inhibitor is still in the list of the manager */
 	checkidleinhibitor(wlr_surface_get_root_surface(data));
-    wl_list_remove(&listener->link);
+	wl_list_remove(&listener->link);
 }
 
 void
@@ -1487,7 +1487,7 @@ destroykeyboardgroup(struct wl_listener *listener, void *data)
 	wl_list_remove(&group->key.link);
 	wl_list_remove(&group->modifiers.link);
 	wl_list_remove(&group->destroy.link);
-    wlr_keyboard_group_destroy(group->wlr_group);
+	wlr_keyboard_group_destroy(group->wlr_group);
 	free(group);
 }
 
@@ -1838,7 +1838,7 @@ gpureset(struct wl_listener *listener, void *data)
 	if (!(alloc = wlr_allocator_autocreate(backend, drw)))
 		die("couldn't recreate allocator");
 
-    wl_list_remove(&gpu_reset.link);
+	wl_list_remove(&gpu_reset.link);
 	wl_signal_add(&drw->events.lost, &gpu_reset);
 
 	wlr_compositor_set_renderer(compositor, drw);
@@ -1854,10 +1854,25 @@ gpureset(struct wl_listener *listener, void *data)
 void
 handlesig(int signo)
 {
-    if (signo == SIGCHLD)
-		while (waitpid(-1, NULL, WNOHANG) > 0);
-    else if (signo == SIGINT || signo == SIGTERM)
+	if (signo == SIGCHLD) {
+		pid_t pid, *p, *lim;
+		while ((pid = waitpid(-1, NULL, WNOHANG)) > 0) {
+			if (pid == child_pid)
+				child_pid = -1;
+			if (!(p = autostart_pids))
+				continue;
+			lim = &p[autostart_len];
+
+			for (; p < lim; p++) {
+				if (*p == pid) {
+					*p = -1;
+					break;
+				}
+			}
+		}
+	} else if (signo == SIGINT || signo == SIGTERM) {
 		quit(NULL);
+	}
 }
 
 void
@@ -2502,7 +2517,7 @@ powermgrsetmode(struct wl_listener *listener, void *data)
 	wlr_output_commit_state(m->wlr_output, &state);
 
 	m->asleep = !event->mode;
-    updatemons(NULL, NULL);
+	updatemons(NULL, NULL);
 }
 
 void
@@ -2866,7 +2881,7 @@ setup(void)
 	 * supports for shared memory, this configures that for clients. */
 	if (!(drw = wlr_renderer_autocreate(backend)))
 		die("couldn't create renderer");
-    wl_signal_add(&drw->events.lost, &gpu_reset);
+	wl_signal_add(&drw->events.lost, &gpu_reset);
 
 	/* Create shm, drm and linux_dmabuf interfaces by ourselves.
 	 * The simplest way is call:
@@ -2881,7 +2896,7 @@ setup(void)
 				wlr_linux_dmabuf_v1_create_with_renderer(dpy, 5, drw));
 	}
 
-    if ((drm_fd = wlr_renderer_get_drm_fd(drw)) >= 0 && drw->features.timeline
+	if ((drm_fd = wlr_renderer_get_drm_fd(drw)) >= 0 && drw->features.timeline
 			&& backend->features.timeline)
 		wlr_linux_drm_syncobj_manager_v1_create(dpy, 1, drm_fd);
 
@@ -2908,29 +2923,29 @@ setup(void)
 	wlr_viewporter_create(dpy);
 	wlr_single_pixel_buffer_manager_v1_create(dpy);
 	wlr_fractional_scale_manager_v1_create(dpy, 1);
-    wlr_presentation_create(dpy, backend, 2);
+	wlr_presentation_create(dpy, backend, 2);
 	wlr_alpha_modifier_v1_create(dpy);
 
 	/* Initializes the interface used to implement urgency hints */
 	activation = wlr_xdg_activation_v1_create(dpy);
-    wl_signal_add(&activation->events.request_activate, &request_activate);
+	wl_signal_add(&activation->events.request_activate, &request_activate);
 
 	wlr_scene_set_gamma_control_manager_v1(scene, wlr_gamma_control_manager_v1_create(dpy));
 
 	power_mgr = wlr_output_power_manager_v1_create(dpy);
-    wl_signal_add(&power_mgr->events.set_mode, &output_power_mgr_set_mode);
+	wl_signal_add(&power_mgr->events.set_mode, &output_power_mgr_set_mode);
 
 	/* Creates an output layout, which a wlroots utility for working with an
 	 * arrangement of screens in a physical layout. */
 	output_layout = wlr_output_layout_create(dpy);
-    wl_signal_add(&output_layout->events.change, &layout_change);
+	wl_signal_add(&output_layout->events.change, &layout_change);
 
     wlr_xdg_output_manager_v1_create(dpy, output_layout);
 
 	/* Configure a listener to be notified when new outputs are available on the
 	 * backend. */
 	wl_list_init(&mons);
-    wl_signal_add(&backend->events.new_output, &new_output);
+	wl_signal_add(&backend->events.new_output, &new_output);
 
 	/* Set up our client lists, the xdg-shell and the layer-shell. The xdg-shell is a
 	 * Wayland protocol which is used for application windows. For more
@@ -2942,19 +2957,19 @@ setup(void)
 	wl_list_init(&fstack);
 
 	xdg_shell = wlr_xdg_shell_create(dpy, 6);
-    wl_signal_add(&xdg_shell->events.new_toplevel, &new_xdg_toplevel);
+	wl_signal_add(&xdg_shell->events.new_toplevel, &new_xdg_toplevel);
 	wl_signal_add(&xdg_shell->events.new_popup, &new_xdg_popup);
 
 	layer_shell = wlr_layer_shell_v1_create(dpy, 3);
-    wl_signal_add(&layer_shell->events.new_surface, &new_layer_surface);
+	wl_signal_add(&layer_shell->events.new_surface, &new_layer_surface);
 
 	idle_notifier = wlr_idle_notifier_v1_create(dpy);
 
 	idle_inhibit_mgr = wlr_idle_inhibit_v1_create(dpy);
-    wl_signal_add(&idle_inhibit_mgr->events.new_inhibitor, &new_idle_inhibitor);
+	wl_signal_add(&idle_inhibit_mgr->events.new_inhibitor, &new_idle_inhibitor);
 
 	session_lock_mgr = wlr_session_lock_manager_v1_create(dpy);
-    wl_signal_add(&session_lock_mgr->events.new_lock, &new_session_lock);
+	wl_signal_add(&session_lock_mgr->events.new_lock, &new_session_lock);
 	locked_bg = wlr_scene_rect_create(layers[LyrBlock], sgeom.width, sgeom.height,
 			(float [4]){0.1f, 0.1f, 0.1f, 1.0f});
 	wlr_scene_node_set_enabled(&locked_bg->node, 0);
@@ -2964,10 +2979,10 @@ setup(void)
 			wlr_server_decoration_manager_create(dpy),
 			WLR_SERVER_DECORATION_MANAGER_MODE_SERVER);
 	xdg_decoration_mgr = wlr_xdg_decoration_manager_v1_create(dpy);
-    wl_signal_add(&xdg_decoration_mgr->events.new_toplevel_decoration, &new_xdg_decoration);
+	wl_signal_add(&xdg_decoration_mgr->events.new_toplevel_decoration, &new_xdg_decoration);
 
 	pointer_constraints = wlr_pointer_constraints_v1_create(dpy);
-    wl_signal_add(&pointer_constraints->events.new_constraint, &new_pointer_constraint);
+	wl_signal_add(&pointer_constraints->events.new_constraint, &new_pointer_constraint);
 
 	relative_pointer_mgr = wlr_relative_pointer_manager_v1_create(dpy);
 
@@ -3002,7 +3017,7 @@ setup(void)
 	wl_signal_add(&cursor->events.frame, &cursor_frame);
 
 	cursor_shape_mgr = wlr_cursor_shape_manager_v1_create(dpy, 1);
-    wl_signal_add(&cursor_shape_mgr->events.request_set_shape, &request_set_cursor_shape);
+	wl_signal_add(&cursor_shape_mgr->events.request_set_shape, &request_set_cursor_shape);
 
 	/*
 	 * Configures a seat, which is a single "seat" at which a user sits and
@@ -3010,16 +3025,16 @@ setup(void)
 	 * pointer, touch, and drawing tablet device. We also rig up a listener to
 	 * let us know when new input devices are available on the backend.
 	 */
-    wl_signal_add(&backend->events.new_input, &new_input_device);
+	wl_signal_add(&backend->events.new_input, &new_input_device);
 	virtual_keyboard_mgr = wlr_virtual_keyboard_manager_v1_create(dpy);
-    wl_signal_add(&virtual_keyboard_mgr->events.new_virtual_keyboard,
+	wl_signal_add(&virtual_keyboard_mgr->events.new_virtual_keyboard,
 			&new_virtual_keyboard);
 	virtual_pointer_mgr = wlr_virtual_pointer_manager_v1_create(dpy);
     wl_signal_add(&virtual_pointer_mgr->events.new_virtual_pointer,
             &new_virtual_pointer);
 
 	seat = wlr_seat_create(dpy, "seat0");
-    wl_signal_add(&seat->events.request_set_cursor, &request_cursor);
+	wl_signal_add(&seat->events.request_set_cursor, &request_cursor);
 	wl_signal_add(&seat->events.request_set_selection, &request_set_sel);
 	wl_signal_add(&seat->events.request_set_primary_selection, &request_set_psel);
 	wl_signal_add(&seat->events.request_start_drag, &request_start_drag);
@@ -3029,15 +3044,15 @@ setup(void)
 	wl_list_init(&kb_group->destroy.link);
 
 	output_mgr = wlr_output_manager_v1_create(dpy);
-    wl_signal_add(&output_mgr->events.apply, &output_mgr_apply);
+	wl_signal_add(&output_mgr->events.apply, &output_mgr_apply);
 	wl_signal_add(&output_mgr->events.test, &output_mgr_test);
-
-	wl_global_create(dpy, &zdwl_ipc_manager_v2_interface, 2, NULL, dwl_ipc_manager_bind);
 
 	tearing_control_v1 = wlr_tearing_control_manager_v1_create(dpy, 1);
 	tearing_control_new_object.notify = handlenewtearinghint;
 	wl_signal_add(&tearing_control_v1->events.new_object, &tearing_control_new_object);
 	wl_list_init(&tearing_controllers);
+
+	wl_global_create(dpy, &zdwl_ipc_manager_v2_interface, 2, NULL, dwl_ipc_manager_bind);
 
 	/* Make sure XWayland clients don't connect to the parent X server,
 	 * e.g when running in the x11 backend or the wayland backend and the
@@ -3049,7 +3064,7 @@ setup(void)
 	 * It will be started when the first X client is started.
 	 */
 	if ((xwayland = wlr_xwayland_create(dpy, compositor, 1))) {
-        wl_signal_add(&xwayland->events.ready, &xwayland_ready);
+		wl_signal_add(&xwayland->events.ready, &xwayland_ready);
 		wl_signal_add(&xwayland->events.new_surface, &new_xwayland_surface);
 
 		setenv("DISPLAY", xwayland->display_name, 1);
