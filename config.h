@@ -25,15 +25,14 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-        "wlr-randr", "--output", "HDMI-A-1", "--preferred", "--pos", "0,0", "--output", "DP-2", "--preferred", "--pos", "1920,0", "--mode", "1920x1080@143.854996Hz", NULL,
-        "xrandr", "--output", "DP-2", "--primary", "--pos", "1920x0", "--mode", "1920x1080", "--rate", "144", "--output", "HDMI-A-1", "--pos", "0x0", NULL,
+        "wlr-randr", "--output", "HDMI-A-1", "--preferred", "--pos", "0,0", "--output", "DP-1", "--preferred", "--pos", "1920,0", "--mode", "1920x1080@143.854996Hz", NULL,
+        "xrandr", "--output", "DP-1", "--primary", "--pos", "1920x0", "--mode", "1920x1080", "--rate", "144", "--output", "HDMI-A-1", "--pos", "0x0", NULL,
         "dbus-daemon", "--session", NULL,
         "pipewire", NULL,
         "pipewire-pulse", NULL,
         "wireplumber", NULL,
         "waybar", "-c", ".config/waybar/dwl/config.jsonc", "-s", ".config/waybar/dwl/style.css", NULL,
         "swaybg", "-i", "/home/erik/github-repos/wallpaper/cyberpunk.jpg", NULL,
-        "/usr/libexec/polkit-mate-authentication-agent-1", NULL,
         "restart_portals", NULL,
         NULL /* terminate */
 };
@@ -166,8 +165,9 @@ static const char *menucmd[]        = { "wofi", NULL };
 static const char *upvol[]          = { "/usr/bin/pactl",   "set-sink-volume", "0",      "+5%",      NULL };
 static const char *downvol[]        = { "/usr/bin/pactl",   "set-sink-volume", "0",      "-5%",      NULL };
 static const char *mutevol[]        = { "/usr/bin/pactl",   "set-sink-mute",   "0",      "toggle",   NULL };
-static const char *browsercmd[]     = { "brave", "--enable-features=UseOzonePlatform", "--ozone-platform=wayland", NULL };
-static const char *filemanagercmd[] = { "nemo", NULL };
+//static const char *browsercmd[]     = { "brave", "--enable-features=UseOzonePlatform", "--ozone-platform=wayland", NULL };
+static const char *browsercmd[]     = { "librewolf", NULL };
+static const char *filemanagercmd[] = { "pcmanfm", NULL };
 static const char *brupcmd[]        = { "brightnessctl", "set", "10%+", NULL };
 static const char *brdowncmd[]      = { "brightnessctl", "set", "10%-", NULL };
 
