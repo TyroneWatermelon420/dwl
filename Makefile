@@ -58,7 +58,7 @@ dwl-ipc-unstable-v2-protocol.c:
 		protocols/dwl-ipc-unstable-v2.xml $@
 
 clean:
-	rm -f dwl *.o *-protocol.h
+	rm -f dwl *.o *-protocol.h dwl-ipc-unstable-v2-protocol.c
 
 dist: clean
 	mkdir -p dwl-$(VERSION)
