@@ -34,7 +34,7 @@ static const char *const autostart[] = {
         "waybar", "-c", ".config/waybar/dwl/config.jsonc", "-s", ".config/waybar/dwl/style.css", NULL,
         "swaybg", "-i", "/home/erik/github-repos/wallpaper/cyberpunk.jpg", NULL,
         "restart_portals", NULL,
-        "nwg-panel", NULL,
+        "dunst", NULL,
         NULL /* terminate */
 };
 
