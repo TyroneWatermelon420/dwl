@@ -31,6 +31,7 @@ static const char *const autostart[] = {
         "swaybg", "-i", "/home/erik/github-repos/wallpaper/cyberpunk.jpg", NULL,
         "restart_portals", NULL,
         "dunst", NULL,
+        "brightnessctl", "set", "100%", NULL,
         NULL /* terminate */
 };
 
@@ -130,7 +131,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[]        = { "kitty", NULL };
-static const char *menucmd[]        = { "wofi", "", "", NULL };
+static const char *menucmd[]        = { "wofi", "--show", "drun", "--gtk-dark", NULL };
 static const char *upvol[]          = { "/usr/bin/pactl",   "set-sink-volume", "0",      "+5%",      NULL };
 static const char *downvol[]        = { "/usr/bin/pactl",   "set-sink-volume", "0",      "-5%",      NULL };
 static const char *mutevol[]        = { "/usr/bin/pactl",   "set-sink-mute",   "0",      "toggle",   NULL };
