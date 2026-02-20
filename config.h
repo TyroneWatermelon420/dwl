@@ -6,19 +6,33 @@
 /* appearance */
 static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
-static const unsigned int borderpx         = 1;  /* border pixel of windows */
+static const unsigned int borderpx         = 3;  /* border pixel of windows */
 static const float rootcolor[]             = COLOR(0x222222ff);
 static const float bordercolor[]           = COLOR(0x444444ff);
 static const float focuscolor[]            = COLOR(0x005577ff);
 static const float urgentcolor[]           = COLOR(0xff0000ff);
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
-static const float fullscreen_bg[]         = {0.0f, 0.0f, 0.0f, 1.0f}; /* You can also use glsl colors */
+static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
 
 /* tagging - TAGCOUNT must be no greater than 31 */
 #define TAGCOUNT (9)
 
 /* logging */
 static int log_level = WLR_ERROR;
+
+static const char *const autostart[] = {
+        "wlr-randr", "--output", "HDMI-A-1", "--preferred", "--pos", "0,0", "--output", "DP-1", "--preferred", "--pos", "1920,0", "--mode", "1920x1080@143.854996Hz", NULL,
+        "xrandr", "--output", "DP-1", "--primary", "--pos", "1920x0", "--mode", "1920x1080", "--rate", "144", "--output", "HDMI-A-1", "--pos", "0x0", NULL,
+        "dbus-daemon", "--session", NULL,
+        "pipewire", NULL,
+        "pipewire-pulse", NULL,
+        "wireplumber", NULL,
+        "waybar", "-c", ".config/waybar/dwl/config.jsonc", "-s", ".config/waybar/dwl/style.css", NULL,
+        "swaybg", "-i", "/home/erik/github-repos/wallpaper/cyberpunk.jpg", NULL,
+        "restart_portals", NULL,
+        "dunst", NULL,
+        NULL /* terminate */
+};
 
 static const Rule rules[] = {
 	/* app_id             title       tags mask     isfloating   monitor */
@@ -145,7 +159,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_l,           setmfact,         {.f = +0.05f} },
 	{ MODKEY,                    XKB_KEY_Return,      zoom,             {0} },
 	{ MODKEY,                    XKB_KEY_Tab,         view,             {0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_c,           killclient,       {0} },
+	{ MODKEY,                    XKB_KEY_q,           killclient,       {0} },
 	{ MODKEY,                    XKB_KEY_t,           setlayout,        {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_r,           setlayout,        {.v = &layouts[1]} },
 	{ MODKEY,                    XKB_KEY_m,           setlayout,        {.v = &layouts[2]} },
@@ -170,6 +184,8 @@ static const Key keys[] = {
     { 0,                         XKB_KEY_XF86AudioMute,        spawn,          {.v = mutevol} },
     { 0,                         XKB_KEY_XF86AudioLowerVolume, spawn,          {.v = downvol} },
     { 0,                         XKB_KEY_XF86AudioRaiseVolume, spawn,          {.v = upvol} },
+    { 0,                         XKB_KEY_XF86MonBrightnessDown,        spawn,          {.v = brdowncmd} },
+    { 0,                         XKB_KEY_XF86MonBrightnessUp,          spawn,          {.v = brupcmd} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_C,          quit,           {0} },
 	/* Ctrl-Alt-Fx is used to switch to another VT, if you don't know what a VT is
 	 * do not remove them.
