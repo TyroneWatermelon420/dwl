@@ -106,7 +106,7 @@ index 4cfd0fd..d24fcb3 100644
 +static void dwl_ipc_output_set_layout(struct wl_client *client, struct wl_resource *resource, uint32_t index);
 +static void dwl_ipc_output_set_tags(struct wl_client *client, struct wl_resource *resource, uint32_t tagmask, uint32_t toggle_tagset);
 +static void dwl_ipc_output_release(struct wl_client *client, struct wl_resource *resource);
- static void focusclient(Client *c, int lift);
+ static void focusclient(Client *c, LayerSurface *l, int lift);
  static void focusmon(const Arg *arg);
  static void focusstack(const Arg *arg);
 @@ -355,6 +374,7 @@ static void startdrag(struct wl_listener *listener, void *data);
@@ -288,7 +288,7 @@ index 4cfd0fd..d24fcb3 100644
 +
 +	selected_client->tags = newtags;
 +	if (selmon == monitor)
-+		focusclient(focustop(monitor), 1);
++		focusclient(focustop(monitor), NULL, 1);
 +	arrange(selmon);
 +	printstatus();
 +}
@@ -333,7 +333,7 @@ index 4cfd0fd..d24fcb3 100644
 +
 +	monitor->tagset[monitor->seltags] = newtags;
 +	if (selmon == monitor)
-+		focusclient(focustop(monitor), 1);
++		focusclient(focustop(monitor), NULL, 1);
 +	arrange(monitor);
 +	printstatus();
 +}
