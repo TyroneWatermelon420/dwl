@@ -26,6 +26,9 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
+        "swaybg", "-i", "~/Downloads/w6x4m4uw7wsh1.jpeg", NULL, 
+        "waybar", "-c", ".config/waybar/dwl/config.jsonc", "-s", ".config/waybar/dwl/style.css &", NULL,
+        "xrandr", "--output", "HDMI-A-1", "-s", "3840x2160", NULL,
         "wbg", "/path/to/your/image", NULL,
         NULL /* terminate */
 };
