@@ -26,10 +26,11 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-        "swaybg", "-i", "~/Downloads/w6x4m4uw7wsh1.jpeg", NULL, 
-        "waybar", "-c", ".config/waybar/dwl/config.jsonc", "-s", ".config/waybar/dwl/style.css &", NULL,
-        "xrandr", "--output", "HDMI-A-1", "-s", "3840x2160", NULL,
-        "wbg", "/path/to/your/image", NULL,
+        "swaybg", "-i", "/home/erik/github-repos/wallpaper/ghost_in_the_shell.jpg", NULL, 
+        "waybar", "-c", "/home/erik/.config/waybar/dwl/config.jsonc", "-s", "/home/erik/.config/waybar/dwl/style.css", NULL,
+        "wlr-randr", "--output", "DP-1", "--mode", "2560x1440@180.001999", NULL,
+        //"xrandr", "--output", "HDMI-A-1", "-s", "3840x2160", NULL,
+        "gentoo-pipewire-launcher", NULL,
         NULL /* terminate */
 };
 
@@ -67,8 +68,9 @@ static const struct xkb_rule_names xkb_rules = {
 	/* example:
 	.options = "ctrl:nocaps",
 	*/
-	.layout = "de",
-	.options = NULL,
+	.layout = "de,us",
+    .options = "grp:alt_shift_toggle",
+	//.options = NULL,
 };
 
 /* numlock and capslock */
@@ -144,6 +146,7 @@ static const char *browsercmd[]     = { "librewolf-bin", NULL };
 static const char *filemanagercmd[] = { "pcmanfm", NULL };
 static const char *brupcmd[]        = { "brightnessctl", "set", "10%+", NULL };
 static const char *brdowncmd[]      = { "brightnessctl", "set", "10%-", NULL };
+static const char *mo2cmd[]      = { "MO2select", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: 2 -> at, etc. */
@@ -152,6 +155,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_w,           spawn,            {.v = browsercmd} },
 	{ MODKEY,                    XKB_KEY_e,           spawn,            {.v = filemanagercmd} },
 	{ MODKEY,                    XKB_KEY_Return,      spawn,            {.v = termcmd} },
+	{ MODKEY,                    XKB_KEY_m,           spawn,            {.v = mo2cmd} },
     { MODKEY,                    XKB_KEY_b,           togglebar,        {0} },
 	{ MODKEY,                    XKB_KEY_j,           focusstack,       {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,           focusstack,       {.i = -1} },
@@ -165,7 +169,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_q,           killclient,       {0} },
 	{ MODKEY,                    XKB_KEY_t,           setlayout,        {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_r,           setlayout,        {.v = &layouts[1]} },
-	{ MODKEY,                    XKB_KEY_m,           setlayout,        {.v = &layouts[2]} },
+	{ MODKEY,                    XKB_KEY_o,           setlayout,        {.v = &layouts[2]} },
 	{ MODKEY,                    XKB_KEY_space,       setlayout,        {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,       togglefloating,   {0} },
 	{ MODKEY,                    XKB_KEY_f,           togglefullscreen, {0} },
@@ -175,7 +179,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_period,      focusmon,         {.i = WLR_DIRECTION_RIGHT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_less,        tagmon,           {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_greater,     tagmon,           {.i = WLR_DIRECTION_RIGHT} },
-    	TAGKEYS(                     XKB_KEY_1,           0),
+   	TAGKEYS(                     XKB_KEY_1,           0),
 	TAGKEYS(                     XKB_KEY_2,           1),
 	TAGKEYS(                     XKB_KEY_3,           2),
 	TAGKEYS(                     XKB_KEY_4,           3),
