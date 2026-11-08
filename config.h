@@ -26,7 +26,7 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-        "swaybg", "-i", "/home/erik/github-repos/wallpaper/ghost_in_the_shell.jpg", NULL, 
+        "swaybg", "-i", "/home/erik/mnt/HDD/github-repos/wallpaper/ghost_in_the_shell.jpg", NULL, 
         "waybar", "-c", "/home/erik/.config/waybar/dwl/config.jsonc", "-s", "/home/erik/.config/waybar/dwl/style.css", NULL,
         "wlr-randr", "--output", "DP-1", "--mode", "2560x1440@180.001999", NULL,
         //"xrandr", "--output", "HDMI-A-1", "-s", "3840x2160", NULL,
@@ -57,7 +57,7 @@ static const MonitorRule monrules[] = {
    /* name        mfact  nmaster scale layout       rotate/reflect                x    y
     * example of a HiDPI laptop monitor:
     { "eDP-1",    0.5f,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 }, */
-	{ "HDMI-A-1",       0.55f, 1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
+	//{ "HDMI-A-1",       0.55f, 1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 	{ NULL,       0.55f, 1,     1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 	/* default monitor rule: can be changed but cannot be eliminated; at least one monitor rule must exist */
 };
