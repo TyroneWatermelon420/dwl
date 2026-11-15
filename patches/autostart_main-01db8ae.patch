@@ -1,5 +1,15 @@
+From d55466ec84dc51b72c9e7d5ece0af12038fad468 Mon Sep 17 00:00:00 2001
+From: A Frederick Christensen <dwl@ivories.org>
+Date: Wed, 11 Nov 2026 17:13:21 -0600
+Subject: [PATCH] autostart patch
+
+---
+ config.def.h |  6 ++++++
+ dwl.c        | 58 +++++++++++++++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 61 insertions(+), 3 deletions(-)
+
 diff --git a/config.def.h b/config.def.h
-index 572984b..0697b66 100644
+index 4901e7a..2d89d44 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -20,6 +20,12 @@ static const float fullscreen_bg[]         = {0.0f, 0.0f, 0.0f, 1.0f}; /* You ca
@@ -8,18 +18,18 @@ index 572984b..0697b66 100644
  
 +/* Autostart */
 +static const char *const autostart[] = {
-+        "wbg", "/path/to/your/image", NULL,
-+        NULL /* terminate */
++	"EXAMPLE_binary", "argument1", NULL,
++	NULL /* terminate */
 +};
 +
  static const Rule rules[] = {
  	/* app_id             title       tags mask     isfloating   monitor */
  	{ "Gimp_EXAMPLE",     NULL,       0,            1,           -1 }, /* Start on currently visible tags floating, not tiled */
 diff --git a/dwl.c b/dwl.c
-index f902ace..36496b3 100644
+index ec9446e..d913711 100644
 --- a/dwl.c
 +++ b/dwl.c
-@@ -263,6 +263,7 @@ static void arrange(Monitor *m);
+@@ -275,6 +275,7 @@ static void arrange(Monitor *m);
  static void arrangelayer(Monitor *m, struct wl_list *list,
  		struct wlr_box *usable_area, int exclusive);
  static void arrangelayers(Monitor *m);
@@ -27,7 +37,7 @@ index f902ace..36496b3 100644
  static void axisnotify(struct wl_listener *listener, void *data);
  static void buttonpress(struct wl_listener *listener, void *data);
  static void capturerequest(struct wl_listener *listener, void *data);
-@@ -471,6 +472,9 @@ static struct wl_listener xwayland_ready = {.notify = xwaylandready};
+@@ -510,6 +511,9 @@ static struct wl_listener xwayland_ready = {.notify = xwaylandready};
  static struct wlr_xwayland *xwayland;
  #endif
  
@@ -37,7 +47,7 @@ index f902ace..36496b3 100644
  /* configuration, allows nested code to access above variables */
  #include "config.h"
  
-@@ -630,6 +634,27 @@ arrangelayers(Monitor *m)
+@@ -697,6 +701,27 @@ arrangelayers(Monitor *m)
  	}
  }
  
@@ -65,15 +75,16 @@ index f902ace..36496b3 100644
  void
  axisnotify(struct wl_listener *listener, void *data)
  {
-@@ -767,12 +792,23 @@ checkidleinhibitor(struct wlr_surface *exclude)
+@@ -837,6 +862,8 @@ checkidleinhibitor(struct wlr_surface *exclude)
  void
  cleanup(void)
  {
 +	size_t i;
 +
+ 	char **name;
+ 
  	cleanuplisteners();
- #ifdef XWAYLAND
- 	wlr_xwayland_destroy(xwayland);
+@@ -845,6 +872,15 @@ cleanup(void)
  	xwayland = NULL;
  #endif
  	wl_display_destroy_clients(dpy);
@@ -89,7 +100,7 @@ index f902ace..36496b3 100644
  	if (child_pid > 0) {
  		kill(-child_pid, SIGTERM);
  		waitpid(child_pid, NULL, 0);
-@@ -1646,10 +1682,25 @@ gpureset(struct wl_listener *listener, void *data)
+@@ -1825,10 +1861,25 @@ gpureset(struct wl_listener *listener, void *data)
  void
  handlesig(int signo)
  {
@@ -118,7 +129,7 @@ index f902ace..36496b3 100644
  }
  
  void
-@@ -2365,6 +2416,7 @@ run(char *startup_cmd)
+@@ -2611,6 +2662,7 @@ run(char *startup_cmd)
  		die("startup: backend_start");
  
  	/* Now that the socket exists and the backend is started, run the startup command */
@@ -126,3 +137,6 @@ index f902ace..36496b3 100644
  	if (startup_cmd) {
  		int piperw[2];
  		if (pipe(piperw) < 0)
+-- 
+2.56.0
+
